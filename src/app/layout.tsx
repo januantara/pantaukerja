@@ -33,7 +33,27 @@ export default function RootLayout({
           defaultTheme="system"
           enableSystem
         >
-          {children}
+
+          <div className="min-h-screen w-full bg-background relative">
+
+            <div
+              className="absolute inset-0 z-0 pointer-events-none opacity-25 dark:opacity-15"
+              style={{
+                backgroundImage: `
+        linear-gradient(to right, var(--border) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--border) 1px, transparent 1px),
+        radial-gradient(circle 500px at 20% 100%, rgba(139,92,246,0.3), transparent),
+        radial-gradient(circle 500px at 100% 80%, rgba(59,130,246,0.3), transparent)
+      `,
+                backgroundSize: "48px 48px, 48px 48px, 100% 100%, 100% 100%",
+              }}
+            />
+            <div className="relative z-50">
+              {children}
+            </div>
+          </div>
+
+
         </ThemeProvider>
       </body>
     </html>

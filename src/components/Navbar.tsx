@@ -7,14 +7,14 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="w-full flex items-center border-b py-6">
+        <nav className="w-full flex items-center bg-background border-b py-6">
             <div className="w-full max-w-5xl px-6 flex items-center justify-between mx-auto">
                 <div className="logo font-semibold text-2xl font-sans flex items-center gap-x-2">
                     <BriefcaseBusiness />
                     Pantau Kerja
                 </div>
                 <div className="flex gap-x-2">
-                    <Button size="icon" onClick={toggleTheme} className="bg-card/50 border text-muted-foreground hover:bg-card"><Sun /></Button>
+                    <Button size="icon" onClick={toggleTheme} className="bg-card border text-muted-foreground hover:bg-accent"><Sun /></Button>
                 </div>
             </div>
         </nav>
