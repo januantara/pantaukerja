@@ -13,7 +13,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen font-sans text-foreground">
       <Navbar />
       <main className="flex-1 mt-10 px-6 py-10">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <Tabs defaultValue="job-tracker">
             <TabsList className="mb-4 w-max bg-background p-2 rounded-md border">
               <TabsTrigger

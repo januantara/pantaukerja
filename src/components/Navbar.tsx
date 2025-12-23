@@ -8,7 +8,7 @@ const Navbar = () => {
 
     return (
         <nav className="w-full flex items-center bg-background border-b py-6">
-            <div className="w-full max-w-5xl px-6 flex items-center justify-between mx-auto">
+            <div className="w-full max-w-6xl px-6 flex items-center justify-between mx-auto">
                 <div className="logo font-semibold text-2xl font-sans flex items-center gap-x-2">
                     <BriefcaseBusiness />
                     Pantau Kerja
