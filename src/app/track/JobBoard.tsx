@@ -1,12 +1,12 @@
 'use client';
 
 import { useState } from "react";
-import { NewApplicationDialog } from "./NewApplicationDialog";
-import { JobBoardHeader } from "./components/JobBoardHeader";
-import { JobBoardFilters } from "./components/JobBoardFilters";
-import { JobBoardEmptyState } from "./components/JobBoardEmptyState";
-import { NewApplication } from "~/types/applications";
+import type { NewApplication } from "~/types/applications";
 import { ApplicationCard } from "./components/ApplicationCard";
+import { JobBoardEmptyState } from "./components/JobBoardEmptyState";
+import { JobBoardFilters } from "./components/JobBoardFilters";
+import { JobBoardHeader } from "./components/JobBoardHeader";
+import { NewApplicationDialog } from "./NewApplicationDialog";
 
 const JobBoard = () => {
     const [view, setView] = useState<"list" | "grid">("grid");

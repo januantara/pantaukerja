@@ -2,8 +2,8 @@
 
 import { TabsList } from "@radix-ui/react-tabs";
 import { Tabs, TabsContent, TabsTrigger } from "~/components/ui/tabs";
-import JobBoard from "./track/JobBoard";
-import InterviewBoard from "./track/InterviewBoard";
+import JobBoard from "./JobBoard";
+import InterviewBoard from "./InterviewBoard";
 import Navbar from "~/components/Navbar";
 
 export default function Home() {
