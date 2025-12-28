@@ -2,7 +2,7 @@ import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card";
 import { NewApplication } from "~/types/applications";
-import { CalendarIcon, MapPinIcon, Building2Icon, UserIcon, MailIcon, PhoneIcon, GlobeIcon, FileTextIcon } from "lucide-react";
+import { CalendarIcon, MapPinIcon, Building2Icon, UserIcon, MailIcon, PhoneIcon, GlobeIcon, FileTextIcon, DollarSign, CreditCard } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "~/lib/utils";
 
@@ -33,9 +33,17 @@ export const ApplicationCard = ({ application, onClick }: ApplicationCardProps) 
                 <div className="flex justify-between items-baseline">
                     <div>
                         <CardTitle className="text-xl font-bold">{application.position}</CardTitle>
-                        <CardDescription className="flex items-center gap-2 mt-1">
-                            <Building2Icon size={14} />
-                            {application.company}
+                        <CardDescription className="gap-2 mt-1">
+                            <div className="flex items-center gap-2 mt-1">
+                                <Building2Icon size={14} />
+                                {application.company}
+                            </div>
+                            {application.salary && (
+                                <div className="flex items-center gap-2">
+                                    <CreditCard size={14} />
+                                    {application.salary}
+                                </div>
+                            )}
                         </CardDescription>
                     </div>
                 </div>
@@ -54,7 +62,7 @@ export const ApplicationCard = ({ application, onClick }: ApplicationCardProps) 
                     </div>
                 </div>
 
-                <div className="flex gap-2">
+                <div className="flex *:flex-1 gap-2">
                     {application.jobUrl && (
                         <Button variant="outline" size="sm" asChild>
                             <a href={application.jobUrl} target="_blank" rel="noopener noreferrer">

@@ -19,6 +19,9 @@ export const applicationSchema = z.object({
     location: z
         .string()
         .optional(),
+    salary: z
+        .string()
+        .optional(),
     status: z
         .enum(['applied', 'hr-interview', 'technical-test', 'user-interview', 'offered', 'rejected']),
     appliedDate: z

@@ -26,6 +26,7 @@ export const NewApplicationDialog = ({ open, onOpenChange, onSubmit, initialData
             company: "",
             position: "",
             location: "",
+            salary: "",
             status: "applied",
             appliedDate: new Date(),
             jobUrl: "",
@@ -47,6 +48,7 @@ export const NewApplicationDialog = ({ open, onOpenChange, onSubmit, initialData
                     company: "",
                     position: "",
                     location: "",
+                    salary: "",
                     status: "applied",
                     appliedDate: new Date(),
                     jobUrl: "",
@@ -116,6 +118,20 @@ export const NewApplicationDialog = ({ open, onOpenChange, onSubmit, initialData
                                             <FormLabel>Location</FormLabel>
                                             <FormControl>
                                                 <Input placeholder="e.g. Jakarta, Remote, Hybrid" {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+
+                                <FormField
+                                    control={newApplicationForm.control}
+                                    name="salary"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Salary</FormLabel>
+                                            <FormControl>
+                                                <Input placeholder="e.g. 5.400.000 - 7.000.000" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>

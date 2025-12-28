@@ -20,6 +20,7 @@ const JobBoard = () => {
             setEditingApplication(null);
         } else {
             setApplications((prev) => [data, ...prev]);
+
         }
     };
 

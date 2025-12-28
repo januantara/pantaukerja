@@ -1,10 +1,11 @@
 "use client";
 
 import { Button } from "~/components/ui/button";
+import { signIn } from "~/lib/auth-client";
 
 const LoginPage = () => {
-    const handleGoogleLogin = () => {
-        // TODO: Implement Google OAuth login
+    const handleGoogleLogin = async () => {
+        await signIn.social({ provider: "google", callbackURL: "/track" });
         console.log("Login with Google clicked");
     };
 
