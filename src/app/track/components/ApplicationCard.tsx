@@ -11,15 +11,6 @@ interface ApplicationCardProps {
     onClick?: () => void;
 }
 
-const statusColorMap: Record<string, "default" | "secondary" | "destructive" | "outline"> = {
-    applied: "secondary",
-    'hr-interview': "default",
-    'technical-test': "secondary",
-    'user-interview': "secondary",
-    offered: "default",
-    rejected: "destructive",
-};
-
 const getStatusColor = (status: string) => {
     switch (status) {
         case 'applied': return ''
