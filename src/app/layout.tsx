@@ -16,6 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://pantaukerja.vercel.app"),
   title: "Pantau Kerja - Job Application & Interview Tracker",
   description: "Track your job applications and organize interview schedules efficiently with Pantau Kerja. The ultimate tool for job seekers.",
   keywords: ["job tracker", "interview scheduler", "career management", "productivity", "job search", "application tracking system"],
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Pantau Kerja - Job Application & Interview Tracker",
     description: "Simplify your job search. Track applications and manage interviews in one place.",
-    url: "https://pantaukerja.com",
+    url: "https://pantaukerja.vercel.app",
     siteName: "Pantau Kerja",
     locale: "en_US",
     type: "website",
