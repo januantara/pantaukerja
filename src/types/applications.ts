@@ -8,7 +8,7 @@ export type jobStatus =
     | 'offered'
     | 'rejected';
 
-// application schema
+// application schema for form validation
 export const applicationSchema = z.object({
     company: z
         .string()
@@ -49,3 +49,7 @@ export const applicationSchema = z.object({
 
 export type NewApplication = z.infer<typeof applicationSchema>;
 
+// Application type with id (from database)
+export type Application = NewApplication & {
+    id: string;
+};

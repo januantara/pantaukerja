@@ -4,14 +4,21 @@ import { Input } from "~/components/ui/input";
 
 interface JobBoardHeaderProps {
     onAddClick: () => void;
+    searchQuery: string;
+    onSearchChange: (query: string) => void;
 }
 
-export const JobBoardHeader = ({ onAddClick }: JobBoardHeaderProps) => {
+export const JobBoardHeader = ({ onAddClick, searchQuery, onSearchChange }: JobBoardHeaderProps) => {
     return (
         <div className="flex max-sm:flex-col gap-6 md:gap-2 mb-6">
-            <div className="search relative flex-1">
+            <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
-                <Input className="pl-10" placeholder="Search by job title or company" />
+                <Input
+                    className="pl-10"
+                    placeholder="Search by company or position..."
+                    value={searchQuery}
+                    onChange={(e) => onSearchChange(e.target.value)}
+                />
             </div>
 
             <Button onClick={onAddClick}>

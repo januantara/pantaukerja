@@ -72,9 +72,9 @@ export const NewApplicationDialog = ({ open, onOpenChange, onSubmit, initialData
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent>
                 <DialogHeader className="mb-6">
-                    <DialogTitle>Track New Application</DialogTitle>
+                    <DialogTitle>{initialData ? 'Edit Application' : 'Track New Application'}</DialogTitle>
                     <DialogDescription>
-                        Add a new application to track your job
+                        {initialData ? 'Update your job application details' : 'Add a new application to track your job'}
                     </DialogDescription>
                 </DialogHeader>
                 <ScrollArea className="h-[70vh] pr-4">
@@ -273,7 +273,7 @@ export const NewApplicationDialog = ({ open, onOpenChange, onSubmit, initialData
 
                             <div className="flex mt-6 gap-2 pb-2 justify-end">
                                 <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>
-                                <Button type="submit">Add Application</Button>
+                                <Button type="submit">{initialData ? 'Update Application' : 'Add Application'}</Button>
                             </div>
                         </form>
                     </Form>

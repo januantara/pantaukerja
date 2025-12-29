@@ -1,20 +1,29 @@
 import { Grid2X2Icon, ListIcon } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "~/components/ui/select";
 import { ToggleGroup, ToggleGroupItem } from "~/components/ui/toggle-group";
+import type { jobStatus } from "~/types/applications";
+
+export type StatusFilter = jobStatus | "all";
 
 interface JobBoardFiltersProps {
     view: "list" | "grid";
     onViewChange: (view: "list" | "grid") => void;
+    statusFilter: StatusFilter;
+    onStatusFilterChange: (status: StatusFilter) => void;
 }
 
-export const JobBoardFilters = ({ view, onViewChange }: JobBoardFiltersProps) => {
+export const JobBoardFilters = ({ view, onViewChange, statusFilter, onStatusFilterChange }: JobBoardFiltersProps) => {
     return (
         <div className="flex justify-between items-center mb-6 gap-2">
-            <Select>
+            <Select
+                value={statusFilter}
+                onValueChange={(value) => onStatusFilterChange(value as StatusFilter)}
+            >
                 <SelectTrigger className="w-[180px] max-sm:w-full">
                     <SelectValue placeholder="All Statuses" />
                 </SelectTrigger>
                 <SelectContent position="popper">
+                    <SelectItem value="all">All Statuses</SelectItem>
                     <SelectItem value="applied">Applied</SelectItem>
                     <SelectItem value="hr-interview">HR Interview</SelectItem>
                     <SelectItem value="technical-test">Technical Test</SelectItem>
