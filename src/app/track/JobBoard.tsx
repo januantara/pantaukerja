@@ -39,11 +39,11 @@ const JobBoard = () => {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [editingApplication, setEditingApplication] = useState<Application | null>(null);
 
-    const { addApplication, deleteApplication, getApplications } = useApplications();
-    const applications = getApplications.data ?? [];
+    const { addApplication, updateApplication, deleteApplication, getApplications } = useApplications();
+    const applications = getApplications.data ?? ([] as Application[]);
 
     const isLoading = getApplications.isLoading || getApplications.isFetching;
-    const isMutating = addApplication.isPending || deleteApplication.isPending;
+    const isMutating = addApplication.isPending || updateApplication.isPending || deleteApplication.isPending;
 
     // Filter applications based on status and search query
     const filteredApplications = useMemo(() => {
@@ -61,7 +61,11 @@ const JobBoard = () => {
     }, [applications, statusFilter, searchQuery]);
 
     const handleSubmit = (data: NewApplication) => {
-        addApplication.mutate(data);
+        if (editingApplication) {
+            updateApplication.mutate({ id: editingApplication.id, application: data });
+        } else {
+            addApplication.mutate(data);
+        }
         setEditingApplication(null);
     };
 
@@ -80,7 +84,7 @@ const JobBoard = () => {
     const renderApplications = () => {
         const CardComponent = view === 'grid' ? ApplicationCard : ApplicationListItem;
         const containerClass = view === 'grid'
-            ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+            ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-start"
             : "flex flex-col gap-4";
 
         return (

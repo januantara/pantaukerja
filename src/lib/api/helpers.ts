@@ -13,8 +13,13 @@ export const success = <T>(data: T, status = 200) =>
 
 // Auth helper
 export async function getAuthUserId(request: NextRequest): Promise<string | null> {
-    const session = await auth.api.getSession({ headers: request.headers });
-    return session?.user?.id ?? null;
+    try {
+        const session = await auth.api.getSession({ headers: request.headers });
+        return session?.user?.id ?? null;
+    } catch (error) {
+        console.error("Error getting auth session:", error);
+        return null;
+    }
 }
 
 // Wrapper for authenticated routes
@@ -22,7 +27,12 @@ export async function withAuth<T>(
     request: NextRequest,
     handler: (userId: string) => Promise<T>
 ): Promise<NextResponse | T> {
-    const userId = await getAuthUserId(request);
-    if (!userId) return unauthorized();
-    return handler(userId);
+    try {
+        const userId = await getAuthUserId(request);
+        if (!userId) return unauthorized();
+        return handler(userId);
+    } catch (error) {
+        console.error("Error in withAuth:", error);
+        return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    }
 }

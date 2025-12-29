@@ -42,7 +42,13 @@ export const NewApplicationDialog = ({ open, onOpenChange, onSubmit, initialData
     useEffect(() => {
         if (open) {
             if (initialData) {
-                newApplicationForm.reset(initialData);
+                newApplicationForm.reset({
+                    ...initialData,
+                    // Convert appliedDate to Date if it's a string (from API response)
+                    appliedDate: initialData.appliedDate instanceof Date
+                        ? initialData.appliedDate
+                        : new Date(initialData.appliedDate),
+                });
             } else {
                 newApplicationForm.reset({
                     company: "",

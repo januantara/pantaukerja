@@ -1,36 +1,42 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { addApplication as addApplicationApi, getApplications as getApplicationsApi, deleteApplication as deleteApplicationApi } from "~/lib/api/applications";
-import { NewApplication } from "~/types/applications";
+import { addApplication as addApplicationApi, getApplications, updateApplication as updateApplicationApi, deleteApplication as deleteApplicationApi } from "~/lib/api/applications";
+import type { Application, NewApplication } from "~/types/applications";
 
 export const useApplications = () => {
     const queryClient = useQueryClient();
 
     const addApplication = useMutation({
-        mutationFn: async (application: NewApplication) => {
-            return await addApplicationApi(application);
-        },
+        mutationFn: async (application: NewApplication) => await addApplicationApi(application),
         onSuccess: () => {
-            // Invalidate and refetch applications list
+            queryClient.invalidateQueries({ queryKey: ["applications"] });
+        },
+    });
+
+    const updateApplication = useMutation({
+        mutationFn: async ({ id, application }: { id: string; application: NewApplication }) =>
+            await updateApplicationApi(id, application),
+        onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["applications"] });
         },
     });
 
     const deleteApplication = useMutation({
-        mutationFn: async (id: string) => {
-            return await deleteApplicationApi(id);
-        },
+        mutationFn: async (id: string) => await deleteApplicationApi(id),
         onSuccess: () => {
-            // Invalidate and refetch applications list
             queryClient.invalidateQueries({ queryKey: ["applications"] });
         },
     });
 
-    const getApplications = useQuery({
+    const getApplicationsQuery = useQuery<Application[]>({
         queryKey: ["applications"],
-        queryFn: async () => {
-            return await getApplicationsApi();
-        },
+        queryFn: getApplications,
+        refetchOnWindowFocus: false,
     });
 
-    return { addApplication, deleteApplication, getApplications };
-}
+    return {
+        addApplication,
+        updateApplication,
+        deleteApplication,
+        getApplications: getApplicationsQuery
+    };
+};
