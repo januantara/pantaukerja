@@ -1,60 +1,14 @@
 'use client';
 
 import { useMemo, useState } from "react";
-import { CalendarCheck, Plus, Search } from "lucide-react";
-import { Button } from "~/components/ui/button";
-import { Input } from "~/components/ui/input";
-import { Skeleton } from "~/components/ui/skeleton";
 import { useInterviews } from "~/hooks/useInterviews";
 import { useApplications } from "~/hooks/useApplications";
-import { NewInterviewDialog } from "./NewInterviewDialog";
-import { InterviewCard } from "./components/InterviewCard";
+import { NewInterviewDialog } from "./interview/NewInterviewDialog";
+import { InterviewCard } from "./interview/InterviewCard";
+import { InterviewBoardHeader } from "./interview/InterviewBoardHeader";
+import { InterviewBoardEmptyState } from "./interview/InterviewBoardEmptyState";
+import { InterviewBoardSkeleton } from "./interview/InterviewBoardSkeleton";
 import type { NewInterview, InterviewWithApplication } from "~/types/interviews";
-
-// Loading skeleton component
-const LoadingSkeleton = () => (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {[1, 2, 3].map((i) => (
-            <div key={i} className="border rounded-lg p-6 space-y-4">
-                <Skeleton className="h-6 w-24" />
-                <Skeleton className="h-6 w-48" />
-                <Skeleton className="h-4 w-32" />
-                <div className="flex gap-4">
-                    <Skeleton className="h-4 w-24" />
-                    <Skeleton className="h-4 w-24" />
-                </div>
-                <div className="flex gap-2">
-                    <Skeleton className="h-9 w-24" />
-                    <Skeleton className="h-9 w-10" />
-                </div>
-            </div>
-        ))}
-    </div>
-);
-
-// Empty state component
-interface EmptyStateProps {
-    hasApplications: boolean;
-    onAddClick: () => void;
-}
-
-const EmptyState = ({ hasApplications, onAddClick }: EmptyStateProps) => (
-    <div className="border-2 border-dashed border-border rounded-2xl p-10 flex flex-col items-center justify-center bg-card/50">
-        <div className="bg-background p-6 rounded-full flex items-center justify-center border border-border shadow-sm">
-            <CalendarCheck className="size-10 text-foreground" />
-        </div>
-        <h2 className="text-2xl font-semibold mt-6 text-foreground">No interviews scheduled</h2>
-        <p className="text-muted-foreground mt-2 text-center">
-            {hasApplications
-                ? "Schedule your first interview to keep track of your upcoming meetings"
-                : "Add a job application first, then schedule your interviews"
-            }
-        </p>
-        <Button className="mt-6" onClick={onAddClick} disabled={!hasApplications}>
-            <Plus /> Add Interview
-        </Button>
-    </div>
-);
 
 const InterviewBoard = () => {
     const [searchQuery, setSearchQuery] = useState("");
@@ -105,43 +59,33 @@ const InterviewBoard = () => {
         setIsDialogOpen(true);
     };
 
-    const handleCloseDialog = (open: boolean) => {
-        setIsDialogOpen(open);
-        if (!open) setEditingInterview(null);
-    };
-
     return (
         <>
-            {/* Header */}
-            <div className="flex max-sm:flex-col gap-2 mb-6">
-                <div className="relative flex-1">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
-                    <Input
-                        className="pl-10"
-                        placeholder="Search by company, position, or type..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                    />
-                </div>
-                <Button onClick={handleOpenDialog} disabled={!hasApplications}>
-                    <Plus /> Add Interview
-                </Button>
-            </div>
+            <InterviewBoardHeader
+                searchQuery={searchQuery}
+                onSearchChange={setSearchQuery}
+                onAddClick={handleOpenDialog}
+                hasApplications={hasApplications}
+            />
 
-            {/* Dialog */}
             <NewInterviewDialog
                 open={isDialogOpen}
-                onOpenChange={handleCloseDialog}
+                onOpenChange={(open) => {
+                    setIsDialogOpen(open);
+                    if (!open) setEditingInterview(null);
+                }}
                 onSubmit={handleSubmit}
                 applications={applications}
                 initialData={editingInterview}
             />
 
-            {/* Content */}
             {isLoading || isMutating ? (
-                <LoadingSkeleton />
+                <InterviewBoardSkeleton />
             ) : filteredInterviews.length === 0 ? (
-                <EmptyState hasApplications={hasApplications} onAddClick={handleOpenDialog} />
+                <InterviewBoardEmptyState
+                    hasApplications={hasApplications}
+                    onAddClick={handleOpenDialog}
+                />
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {filteredInterviews.map((interview) => (

@@ -5,23 +5,12 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Application } from "~/types/applications";
 import { Building2Icon, GlobeIcon, CreditCard, MoreVertical, Pencil, Trash2 } from "lucide-react";
 import { cn } from "~/lib/utils";
+import { getStatusColor } from "~/lib/applicationStatus";
 
 interface ApplicationListItemProps {
     application: Application;
     onClick?: () => void;
     onDelete?: (id: string) => void;
-}
-
-const getStatusColor = (status: string) => {
-    switch (status) {
-        case 'applied': return ''
-        case 'hr-interview': return 'bg-blue-500/10 text-blue-500 border-blue-500/20'
-        case 'technical-test': return 'bg-cyan-500/10 text-cyan-500 border-cyan-500/20'
-        case 'user-interview': return 'bg-orange-500/10 text-orange-500 border-orange-500/20'
-        case 'offered': return 'bg-green-500/10 text-green-500 border-green-500/20'
-        case 'rejected': return 'bg-red-500/10 text-red-500 border-red-500/20'
-        default: return ''
-    }
 }
 
 export const ApplicationListItem = ({ application, onClick, onDelete }: ApplicationListItemProps) => {

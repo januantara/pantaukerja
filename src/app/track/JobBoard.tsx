@@ -2,12 +2,12 @@
 
 import { useMemo, useState } from "react";
 import type { NewApplication, Application } from "~/types/applications";
-import { ApplicationCard } from "./components/ApplicationCard";
-import { ApplicationListItem } from "./components/ApplicationListItem";
-import { JobBoardEmptyState } from "./components/JobBoardEmptyState";
-import { JobBoardFilters, type StatusFilter } from "./components/JobBoardFilters";
-import { JobBoardHeader } from "./components/JobBoardHeader";
-import { NewApplicationDialog } from "./NewApplicationDialog";
+import { ApplicationCard } from "./application/ApplicationCard";
+import { ApplicationListItem } from "./application/ApplicationListItem";
+import { JobBoardEmptyState } from "./application/JobBoardEmptyState";
+import { JobBoardFilters, type StatusFilter } from "./application/JobBoardFilters";
+import { JobBoardHeader } from "./application/JobBoardHeader";
+import { NewApplicationDialog } from "./application/NewApplicationDialog";
 import { useApplications } from "~/hooks/useApplications";
 import { Skeleton } from "~/components/ui/skeleton";
 

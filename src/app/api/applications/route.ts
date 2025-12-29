@@ -3,6 +3,7 @@ import { db } from "~/db";
 import { applications } from "~/db/schema";
 import { eq } from "drizzle-orm";
 import { withAuth, success } from "~/lib/api/helpers";
+import { extractApplicationFields } from "~/lib/applicationStatus";
 
 export async function GET(request: NextRequest) {
     return withAuth(request, async (userId) => {
@@ -16,21 +17,11 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
     return withAuth(request, async (userId) => {
         const body = await request.json();
+        const applicationData = extractApplicationFields(body);
 
         const [newApplication] = await db.insert(applications).values({
             userId,
-            company: body.company,
-            position: body.position,
-            location: body.location,
-            salary: body.salary,
-            status: body.status,
-            appliedDate: new Date(body.appliedDate),
-            jobUrl: body.jobUrl,
-            jobDescription: body.jobDescription,
-            hrName: body.hrName,
-            hrEmail: body.hrEmail,
-            hrPhone: body.hrPhone,
-            notes: body.notes,
+            ...applicationData,
         }).returning();
 
         return success(newApplication, 201);

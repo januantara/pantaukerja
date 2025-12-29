@@ -3,6 +3,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "~
 import { ToggleGroup, ToggleGroupItem } from "~/components/ui/toggle-group";
 import type { jobStatus } from "~/types/applications";
 
+import { STATUS_OPTIONS } from "~/lib/applicationStatus";
+
 export type StatusFilter = jobStatus | "all";
 
 interface JobBoardFiltersProps {
@@ -24,12 +26,11 @@ export const JobBoardFilters = ({ view, onViewChange, statusFilter, onStatusFilt
                 </SelectTrigger>
                 <SelectContent position="popper">
                     <SelectItem value="all">All Statuses</SelectItem>
-                    <SelectItem value="applied">Applied</SelectItem>
-                    <SelectItem value="hr-interview">HR Interview</SelectItem>
-                    <SelectItem value="technical-test">Technical Test</SelectItem>
-                    <SelectItem value="user-interview">User Interview</SelectItem>
-                    <SelectItem value="offered">Offered</SelectItem>
-                    <SelectItem value="rejected">Rejected</SelectItem>
+                    {STATUS_OPTIONS.map((option) => (
+                        <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                        </SelectItem>
+                    ))}
                 </SelectContent>
             </Select>
 

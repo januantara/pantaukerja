@@ -10,6 +10,7 @@ import { ScrollArea } from "~/components/ui/scroll-area";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "~/components/ui/select";
 import { Textarea } from "~/components/ui/textarea";
 import { applicationSchema, NewApplication } from "~/types/applications";
+import { DEFAULT_APPLICATION, STATUS_OPTIONS } from "~/lib/applicationStatus";
 
 interface NewApplicationDialogProps {
     open: boolean;
@@ -22,20 +23,7 @@ export const NewApplicationDialog = ({ open, onOpenChange, onSubmit, initialData
     const newApplicationForm = useForm<NewApplication>({
         resolver: zodResolver(applicationSchema),
         mode: "onSubmit",
-        defaultValues: {
-            company: "",
-            position: "",
-            location: "",
-            salary: "",
-            status: "applied",
-            appliedDate: new Date(),
-            jobUrl: "",
-            jobDescription: "",
-            hrName: "",
-            hrEmail: "",
-            hrPhone: "",
-            notes: "",
-        }
+        defaultValues: DEFAULT_APPLICATION
     })
 
     // Reset form when dialog opens or initialData changes
@@ -50,20 +38,7 @@ export const NewApplicationDialog = ({ open, onOpenChange, onSubmit, initialData
                         : new Date(initialData.appliedDate),
                 });
             } else {
-                newApplicationForm.reset({
-                    company: "",
-                    position: "",
-                    location: "",
-                    salary: "",
-                    status: "applied",
-                    appliedDate: new Date(),
-                    jobUrl: "",
-                    jobDescription: "",
-                    hrName: "",
-                    hrEmail: "",
-                    hrPhone: "",
-                    notes: "",
-                });
+                newApplicationForm.reset(DEFAULT_APPLICATION);
             }
         }
     }, [open, initialData, newApplicationForm]);
@@ -160,12 +135,11 @@ export const NewApplicationDialog = ({ open, onOpenChange, onSubmit, initialData
                                                             <SelectValue placeholder="Select status" />
                                                         </SelectTrigger>
                                                         <SelectContent position="popper">
-                                                            <SelectItem value="applied">Applied</SelectItem>
-                                                            <SelectItem value="hr-interview">HR Interview</SelectItem>
-                                                            <SelectItem value="technical-test">Technical Test</SelectItem>
-                                                            <SelectItem value="user-interview">User Interview</SelectItem>
-                                                            <SelectItem value="offered">Offered</SelectItem>
-                                                            <SelectItem value="rejected">Rejected</SelectItem>
+                                                            {STATUS_OPTIONS.map((option) => (
+                                                                <SelectItem key={option.value} value={option.value}>
+                                                                    {option.label}
+                                                                </SelectItem>
+                                                            ))}
                                                         </SelectContent>
                                                     </Select>
                                                 </FormControl>
