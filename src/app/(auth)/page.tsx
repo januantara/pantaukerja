@@ -6,18 +6,17 @@ import { signIn } from "~/lib/auth-client";
 const LoginPage = () => {
     const handleGoogleLogin = async () => {
         await signIn.social({ provider: "google", callbackURL: "/track" });
-        console.log("Login with Google clicked");
     };
 
     return (
-        <main className="min-h-dvh w-full grid place-items-center">
+        <main className="min-h-dvh w-full grid place-items-center p-4">
             <div className="max-w-md w-full p-8 bg-white dark:bg-card rounded-lg shadow-lg">
                 <div className="text-center mb-8">
                     <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
                         Welcome Back
                     </h1>
                     <p className="text-gray-600 dark:text-gray-400">
-                        Sign in to continue to PantauKerja
+                        Sign in to continue to Pantau Kerja
                     </p>
                 </div>
 

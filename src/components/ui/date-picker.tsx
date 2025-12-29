@@ -40,7 +40,7 @@ interface DatePickerProps {
     placeholder?: string
 }
 
-export function DatePicker({ value, onChange, placeholder = "Select date" }: DatePickerProps) {
+export function DatePicker({ value, onChange, placeholder = "Select date", id, name, ...props }: DatePickerProps & { id?: string; name?: string } & React.ComponentProps<"div">) {
     // Convert value to Date if it's a string
     const dateValue = value ? (typeof value === 'string' ? new Date(value) : value) : undefined
 
@@ -72,9 +72,10 @@ export function DatePicker({ value, onChange, placeholder = "Select date" }: Dat
     }
 
     return (
-        <div className="relative flex gap-2 w-full">
+        <div className="relative flex gap-2 w-full" {...props}>
             <Input
-                id="date"
+                id={id}
+                name={name}
                 value={inputValue}
                 placeholder={placeholder}
                 className="bg-background pr-10"

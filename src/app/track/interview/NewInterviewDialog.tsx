@@ -89,29 +89,30 @@ export const NewInterviewDialog = ({ open, onOpenChange, onSubmit, applications,
                                     render={({ field }) => (
                                         <FormItem>
                                             <FormLabel>Job Application *</FormLabel>
-                                            <FormControl>
-                                                <Select
-                                                    onValueChange={field.onChange}
-                                                    value={field.value}
-                                                >
+                                            <Select
+                                                onValueChange={field.onChange}
+                                                value={field.value}
+                                                name={field.name}
+                                            >
+                                                <FormControl>
                                                     <SelectTrigger className="w-full">
                                                         <SelectValue placeholder="Select application" />
                                                     </SelectTrigger>
-                                                    <SelectContent position="popper">
-                                                        {applications.length === 0 ? (
-                                                            <SelectItem value="no-apps" disabled>
-                                                                No applications available
+                                                </FormControl>
+                                                <SelectContent position="popper">
+                                                    {applications.length === 0 ? (
+                                                        <SelectItem value="no-apps" disabled>
+                                                            No applications available
+                                                        </SelectItem>
+                                                    ) : (
+                                                        applications.map((app) => (
+                                                            <SelectItem key={app.id} value={app.id}>
+                                                                {app.company} - {app.position}
                                                             </SelectItem>
-                                                        ) : (
-                                                            applications.map((app) => (
-                                                                <SelectItem key={app.id} value={app.id}>
-                                                                    {app.company} - {app.position}
-                                                                </SelectItem>
-                                                            ))
-                                                        )}
-                                                    </SelectContent>
-                                                </Select>
-                                            </FormControl>
+                                                        ))
+                                                    )}
+                                                </SelectContent>
+                                            </Select>
                                             <FormMessage />
                                         </FormItem>
                                     )}
@@ -123,22 +124,23 @@ export const NewInterviewDialog = ({ open, onOpenChange, onSubmit, applications,
                                     render={({ field }) => (
                                         <FormItem>
                                             <FormLabel>Interview Type *</FormLabel>
-                                            <FormControl>
-                                                <Select
-                                                    onValueChange={field.onChange}
-                                                    value={field.value}
-                                                >
+                                            <Select
+                                                onValueChange={field.onChange}
+                                                value={field.value}
+                                                name={field.name}
+                                            >
+                                                <FormControl>
                                                     <SelectTrigger className="w-full">
                                                         <SelectValue placeholder="Select type" />
                                                     </SelectTrigger>
-                                                    <SelectContent position="popper">
-                                                        <SelectItem value="hr-interview">HR Interview</SelectItem>
-                                                        <SelectItem value="technical-test">Technical Test</SelectItem>
-                                                        <SelectItem value="user-interview">User Interview</SelectItem>
-                                                        <SelectItem value="final-interview">Final Interview</SelectItem>
-                                                    </SelectContent>
-                                                </Select>
-                                            </FormControl>
+                                                </FormControl>
+                                                <SelectContent position="popper">
+                                                    <SelectItem value="hr-interview">HR Interview</SelectItem>
+                                                    <SelectItem value="technical-test">Technical Test</SelectItem>
+                                                    <SelectItem value="user-interview">User Interview</SelectItem>
+                                                    <SelectItem value="final-interview">Final Interview</SelectItem>
+                                                </SelectContent>
+                                            </Select>
                                             <FormMessage />
                                         </FormItem>
                                     )}
@@ -154,6 +156,7 @@ export const NewInterviewDialog = ({ open, onOpenChange, onSubmit, applications,
                                                 <DateTimePicker
                                                     value={field.value}
                                                     onChange={field.onChange}
+                                                    name={field.name}
                                                 />
                                             </FormControl>
                                             <FormMessage />
@@ -166,9 +169,9 @@ export const NewInterviewDialog = ({ open, onOpenChange, onSubmit, applications,
                                     name="location"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>Location *</FormLabel>
+                                            <FormLabel>Interview Location *</FormLabel>
                                             <FormControl>
-                                                <Input placeholder="e.g. Online, Office Jakarta, etc." {...field} />
+                                                <Input placeholder="e.g. Online, Office Jakarta, etc." {...field} autoComplete="off" />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -182,7 +185,7 @@ export const NewInterviewDialog = ({ open, onOpenChange, onSubmit, applications,
                                         <FormItem>
                                             <FormLabel>Meeting Link</FormLabel>
                                             <FormControl>
-                                                <Input type="url" placeholder="https://meet.google.com/..." {...field} />
+                                                <Input type="url" placeholder="https://meet.google.com/..." {...field} autoComplete="off" />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -196,7 +199,7 @@ export const NewInterviewDialog = ({ open, onOpenChange, onSubmit, applications,
                                         <FormItem>
                                             <FormLabel>Notes</FormLabel>
                                             <FormControl>
-                                                <Textarea placeholder="e.g. Prepare portfolio, dress code formal" {...field} />
+                                                <Textarea placeholder="e.g. Prepare portfolio, dress code formal" {...field} autoComplete="off" />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>

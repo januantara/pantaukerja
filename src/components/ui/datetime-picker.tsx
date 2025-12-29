@@ -43,7 +43,7 @@ interface DateTimePickerProps {
     placeholder?: string
 }
 
-export function DateTimePicker({ value, onChange, placeholder = "Select date & time" }: DateTimePickerProps) {
+export function DateTimePicker({ value, onChange, placeholder = "Select date & time", id, name, ...props }: DateTimePickerProps & { id?: string; name?: string } & React.ComponentProps<"div">) {
     const dateValue = value ? (typeof value === 'string' ? new Date(value) : value) : undefined
 
     const [open, setOpen] = React.useState(false)
@@ -92,9 +92,10 @@ export function DateTimePicker({ value, onChange, placeholder = "Select date & t
     }
 
     return (
-        <div className="relative flex gap-2 w-full">
+        <div className="relative flex gap-2 w-full" {...props}>
             <Input
-                id="datetime"
+                id={id}
+                name={name}
                 value={inputValue}
                 placeholder={placeholder}
                 className="bg-background pr-10"

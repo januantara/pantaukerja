@@ -15,10 +15,13 @@ export const InterviewBoardHeader = ({ searchQuery, onSearchChange, onAddClick, 
         <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
             <Input
+                id="application-search"
                 className="pl-10"
                 placeholder="Search by company, position, or type..."
                 value={searchQuery}
                 onChange={(e) => onSearchChange(e.target.value)}
+                name="search"
+                autoComplete="off"
             />
         </div>
         <Button onClick={onAddClick} disabled={!hasApplications}>

@@ -20,6 +20,7 @@ export const JobBoardFilters = ({ view, onViewChange, statusFilter, onStatusFilt
             <Select
                 value={statusFilter}
                 onValueChange={(value) => onStatusFilterChange(value as StatusFilter)}
+                name="status"
             >
                 <SelectTrigger className="w-[180px] max-sm:w-full">
                     <SelectValue placeholder="All Statuses" />

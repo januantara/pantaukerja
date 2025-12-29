@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import Providers from "./providers";
+import Footer from "~/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,11 +27,13 @@ export const metadata: Metadata = {
     siteName: "Pantau Kerja",
     locale: "en_US",
     type: "website",
+    images: ["/meta-image.png"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Pantau Kerja - Job Application & Interview Tracker",
     description: "Simplify your job search. Track applications and manage interviews in one place.",
+    images: ["/meta-image.png"],
   },
   icons: {
     icon: "/favicon.ico",
@@ -53,7 +56,7 @@ export default function RootLayout({
           enableSystem
         >
 
-          <div className="min-h-screen w-full bg-background relative">
+          <div className="min-h-screen w-full bg-background relative flex flex-col">
 
             <div
               className="absolute inset-0 z-0 pointer-events-none opacity-25 dark:opacity-15"
@@ -67,8 +70,13 @@ export default function RootLayout({
                 backgroundSize: "48px 48px, 48px 48px, 100% 100%, 100% 100%",
               }}
             />
-            <div className="relative z-50">
-              <Providers>{children}</Providers>
+            <div className="relative z-50 flex-1 flex flex-col">
+              <Providers>
+                <div className="flex-1 w-full">
+                  {children}
+                </div>
+              </Providers>
+              <Footer />
             </div>
           </div>
 

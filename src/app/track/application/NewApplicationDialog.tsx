@@ -70,7 +70,7 @@ export const NewApplicationDialog = ({ open, onOpenChange, onSubmit, initialData
                                             <FormItem>
                                                 <FormLabel>Company *</FormLabel>
                                                 <FormControl>
-                                                    <Input placeholder="Company name" {...field} />
+                                                    <Input placeholder="Company name" {...field} autoComplete="organization" />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -83,7 +83,7 @@ export const NewApplicationDialog = ({ open, onOpenChange, onSubmit, initialData
                                             <FormItem>
                                                 <FormLabel>Position *</FormLabel>
                                                 <FormControl>
-                                                    <Input placeholder="e.g. Software Engineer" {...field} />
+                                                    <Input placeholder="e.g. Software Engineer" {...field} autoComplete="organization-title" />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -98,7 +98,7 @@ export const NewApplicationDialog = ({ open, onOpenChange, onSubmit, initialData
                                         <FormItem>
                                             <FormLabel>Location</FormLabel>
                                             <FormControl>
-                                                <Input placeholder="e.g. Jakarta, Remote, Hybrid" {...field} />
+                                                <Input placeholder="e.g. Jakarta, Remote, Hybrid" {...field} autoComplete="off" />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -112,7 +112,7 @@ export const NewApplicationDialog = ({ open, onOpenChange, onSubmit, initialData
                                         <FormItem>
                                             <FormLabel>Salary</FormLabel>
                                             <FormControl>
-                                                <Input placeholder="e.g. 5.400.000 - 7.000.000" {...field} />
+                                                <Input placeholder="e.g. 5.400.000 - 7.000.000" {...field} autoComplete="off" />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -126,23 +126,24 @@ export const NewApplicationDialog = ({ open, onOpenChange, onSubmit, initialData
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormLabel>Status *</FormLabel>
-                                                <FormControl>
-                                                    <Select
-                                                        onValueChange={field.onChange}
-                                                        defaultValue={field.value}
-                                                    >
+                                                <Select
+                                                    onValueChange={field.onChange}
+                                                    defaultValue={field.value}
+                                                    name={field.name}
+                                                >
+                                                    <FormControl>
                                                         <SelectTrigger className="w-full">
                                                             <SelectValue placeholder="Select status" />
                                                         </SelectTrigger>
-                                                        <SelectContent position="popper">
-                                                            {STATUS_OPTIONS.map((option) => (
-                                                                <SelectItem key={option.value} value={option.value}>
-                                                                    {option.label}
-                                                                </SelectItem>
-                                                            ))}
-                                                        </SelectContent>
-                                                    </Select>
-                                                </FormControl>
+                                                    </FormControl>
+                                                    <SelectContent position="popper">
+                                                        {STATUS_OPTIONS.map((option) => (
+                                                            <SelectItem key={option.value} value={option.value}>
+                                                                {option.label}
+                                                            </SelectItem>
+                                                        ))}
+                                                    </SelectContent>
+                                                </Select>
                                                 <FormMessage />
                                             </FormItem>
                                         )}
@@ -158,6 +159,7 @@ export const NewApplicationDialog = ({ open, onOpenChange, onSubmit, initialData
                                                     <DatePicker
                                                         value={field.value}
                                                         onChange={field.onChange}
+                                                        name={field.name}
                                                         placeholder="Select date"
                                                     />
                                                 </FormControl>
@@ -174,7 +176,7 @@ export const NewApplicationDialog = ({ open, onOpenChange, onSubmit, initialData
                                         <FormItem>
                                             <FormLabel>Job URL *</FormLabel>
                                             <FormControl>
-                                                <Input type="url" placeholder="https://..." {...field} />
+                                                <Input type="url" placeholder="https://..." {...field} autoComplete="off" />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -188,7 +190,7 @@ export const NewApplicationDialog = ({ open, onOpenChange, onSubmit, initialData
                                         <FormItem>
                                             <FormLabel>Job Description</FormLabel>
                                             <FormControl>
-                                                <Textarea placeholder="Paste the job description here" {...field} />
+                                                <Textarea placeholder="Paste the job description here" {...field} autoComplete="off" />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -204,7 +206,7 @@ export const NewApplicationDialog = ({ open, onOpenChange, onSubmit, initialData
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormControl>
-                                                    <Input placeholder="Name" {...field} />
+                                                    <Input placeholder="Name" {...field} autoComplete="name" />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -216,7 +218,7 @@ export const NewApplicationDialog = ({ open, onOpenChange, onSubmit, initialData
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormControl>
-                                                    <Input placeholder="Email" {...field} />
+                                                    <Input placeholder="Email" {...field} autoComplete="email" />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -228,7 +230,7 @@ export const NewApplicationDialog = ({ open, onOpenChange, onSubmit, initialData
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormControl>
-                                                    <Input placeholder="Phone" {...field} />
+                                                    <Input placeholder="Phone" {...field} autoComplete="tel" />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -243,7 +245,7 @@ export const NewApplicationDialog = ({ open, onOpenChange, onSubmit, initialData
                                         <FormItem>
                                             <FormLabel>Notes</FormLabel>
                                             <FormControl>
-                                                <Textarea placeholder="e.g. Very fast response, seems like a good fit" {...field} />
+                                                <Textarea placeholder="e.g. Very fast response, seems like a good fit" {...field} autoComplete="off" />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>

@@ -2,8 +2,10 @@ import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader } from "~/components/ui/card";
 import { InterviewWithApplication } from "~/types/interviews";
-import { Building2Icon, Calendar, Clock, MapPin, Video, Trash2 } from "lucide-react";
+import { Building2Icon, Calendar, Clock, MapPin, Video, Trash2, CalendarPlus } from "lucide-react";
 import { cn } from "~/lib/utils";
+import { getGoogleCalendarUrl } from "~/lib/calendar-utils";
+import { MouseEvent } from "react";
 
 interface InterviewCardProps {
     interview: InterviewWithApplication;
@@ -50,15 +52,35 @@ export const InterviewCard = ({ interview, onClick, onDelete }: InterviewCardPro
     const today = isToday(interview.datetime);
 
     const cardStyles = cn(
-        "w-full h-full cursor-pointer transition-all hover:shadow-md flex flex-col",
+        "w-full h-full cursor-pointer transition-all hover:shadow-md flex flex-col gap-5",
         !today && upcoming && "border-primary/10 hover:border-primary",
         !today && !upcoming && "opacity-60",
         today && "ring-1 ring-green-400/50 border-green-400/50"
     );
 
+    const handleAddToCalendar = (e: MouseEvent) => {
+        e.stopPropagation();
+        const url = getGoogleCalendarUrl({
+            title: `Interview: ${interview.application.position} at ${interview.application.company}`,
+            details: `Type: ${TYPE_LABELS[interview.type] || interview.type}\nNotes: ${interview.notes || ''}\nMeeting Link: ${interview.meetingLink || ''}`,
+            location: interview.location,
+            start: toDate(interview.datetime),
+        });
+        window.open(url, '_blank');
+    };
+
+    const handleJoinMeetingClick = (e: MouseEvent) => {
+        e.stopPropagation();
+    };
+
+    const handleDeleteClick = (e: MouseEvent) => {
+        e.stopPropagation();
+        onDelete?.(interview.id);
+    };
+
     return (
         <Card className={cardStyles} onClick={onClick}>
-            <CardHeader className="pb-2">
+            <CardHeader>
                 <div className="flex items-center justify-between">
                     <Badge variant="outline" className={cn(TYPE_STYLES[interview.type] || '', 'text-xs')}>
                         {TYPE_LABELS[interview.type] || interview.type}
@@ -117,22 +139,39 @@ export const InterviewCard = ({ interview, onClick, onDelete }: InterviewCardPro
                 </div>
 
                 {/* Actions - always at bottom */}
-                <div className="flex items-center gap-2 pt-3 mt-auto">
+                <div className="flex items-center gap-2 pt-4 mt-auto">
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        className="flex-1 sm:flex-none text-xs h-8"
+                        onClick={handleAddToCalendar}
+                    >
+                        <CalendarPlus size={14} className="mr-1.5" />
+                        <span className="truncate">Calendar</span>
+                    </Button>
+
                     {interview.meetingLink && (
-                        <Button variant="default" size="sm" asChild onClick={(e) => e.stopPropagation()}>
+                        <Button
+                            variant="default"
+                            size="sm"
+                            className="flex-1 sm:flex-none text-xs h-8"
+                            asChild
+                            onClick={handleJoinMeetingClick}
+                        >
                             <a href={interview.meetingLink} target="_blank" rel="noopener noreferrer">
-                                <Video size={14} className="mr-2" />
-                                Join Meeting
+                                <Video size={14} className="mr-1.5" />
+                                Join
                             </a>
                         </Button>
                     )}
+
                     <Button
                         size="icon"
-                        variant="destructive"
-                        onClick={(e) => { e.stopPropagation(); onDelete?.(interview.id); }}
-                        className="hover:!bg-rose-500/50 cursor-pointer"
+                        variant="ghost"
+                        onClick={handleDeleteClick}
+                        className="size-8 shrink-0 text-muted-foreground hover:bg-destructive/10 hover:text-destructive ml-auto"
                     >
-                        <Trash2 size={14} />
+                        <Trash2 size={15} />
                     </Button>
                 </div>
             </CardContent>
