@@ -12,9 +12,9 @@ export const JobBoardEmptyState = ({ onAddClick }: JobBoardEmptyStateProps) => {
                 <BriefcaseBusiness className="size-10 text-foreground" />
             </div>
             <h2 className="text-2xl font-semibold mt-6 text-foreground">The board is clear</h2>
-            <p className="text-muted-foreground mt-2">Add your first application to track your application progress</p>
+            <p className="text-muted-foreground max-sm:text-sm text-center mt-2">Add your first application to track your application progress</p>
             <Button className="mt-6" onClick={onAddClick}>
-                <Plus /> Add New Application
+                <Plus /> Track New Application
             </Button>
         </div>
     );

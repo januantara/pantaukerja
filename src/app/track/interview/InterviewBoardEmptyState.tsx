@@ -13,7 +13,7 @@ export const InterviewBoardEmptyState = ({ hasApplications, onAddClick }: Interv
             <CalendarCheck className="size-10 text-foreground" />
         </div>
         <h2 className="text-2xl font-semibold mt-6 text-foreground">No interviews scheduled</h2>
-        <p className="text-muted-foreground mt-2 text-center">
+        <p className="text-muted-foreground mt-2 text-center max-sm:text-sm">
             {hasApplications
                 ? "Schedule your first interview to keep track of your upcoming meetings"
                 : "Add a job application first, then schedule your interviews"
