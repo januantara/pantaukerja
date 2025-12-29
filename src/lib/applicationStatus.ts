@@ -12,8 +12,7 @@ const STATUS_COLORS: Record<string, string> = {
     rejected: "bg-red-500/10 text-red-500 border-red-500/20",
 };
 
-export const getStatusColor = (status: string): string =>
-    STATUS_COLORS[status] ?? "";
+export const getStatusColor = (status: string): string => STATUS_COLORS[status] ?? "";
 
 /**
  * Status options for select components

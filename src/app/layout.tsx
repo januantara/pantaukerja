@@ -17,7 +17,10 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://pantaukerja.vercel.app"),
-  title: "Pantau Kerja - Job Application & Interview Tracker",
+  title: {
+    default: "Pantau Kerja - Job Application & Interview Tracker",
+    template: "%s | Pantau Kerja",
+  },
   description: "Track your job applications and organize interview schedules efficiently with Pantau Kerja. The ultimate tool for job seekers.",
   keywords: ["job tracker", "interview scheduler", "career management", "productivity", "job search", "application tracking system"],
   authors: [{ name: "Januantara" }],
@@ -39,6 +42,7 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.ico",
   },
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({
